@@ -24,6 +24,8 @@ def login():
 if "user" not in st.session_state:
     login()
 else:
+    st.success(f"Bienvenue {st.session_state['user']['user']['email']}")
+    st.write("👋 Interface encore en construction... modules à venir !")
     user_email = st.session_state['user']['user']['email']
     user_id = st.session_state['user']['user']['id']
     st.sidebar.success(f"Connecté : {user_email}")
