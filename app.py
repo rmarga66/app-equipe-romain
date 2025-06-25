@@ -13,13 +13,18 @@ def login():
     email = st.text_input("Messagerie électronique")
     password = st.text_input("Mot de passe", type="password")
     if st.button("Se connecter"):
-        response = supabase.auth.sign_in_with_password({"email": email, "password": password})
-        if response.user:
-            st.session_state['user'] = response
-            st.success("Connecté !")
-            st.experimental_rerun()
-        else:
-            st.error("Erreur de connexion : vérifie ton email ou mot de passe.")
+        try:
+            response = supabase.auth.sign_in_with_password({
+                "email": email,
+                "password": password
+            })
+            if response.user:
+                st.session_state['user'] = response
+                st.experimental_rerun()
+            else:
+                st.error("Connexion échouée. Vérifie ton email ou ton mot de passe.")
+        except Exception as e:
+            st.error(f"Erreur Supabase : {str(e)}")
 
 if "user" not in st.session_state:
     login()
