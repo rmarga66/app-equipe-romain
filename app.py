@@ -20,7 +20,7 @@ def login():
             })
             if response.user:
                 st.session_state['user'] = response
-                st.experimental_rerun()
+                st.rerun()
             else:
                 st.error("Connexion échouée. Vérifie ton email ou ton mot de passe.")
         except Exception as e:
@@ -111,4 +111,4 @@ else:
 
     elif choix == "Déconnexion":
         st.session_state.clear()
-        st.experimental_rerun()
+        st.rerun()
