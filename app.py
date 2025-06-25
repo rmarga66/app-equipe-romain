@@ -2,11 +2,11 @@
 import streamlit as st
 from supabase import create_client
 from datetime import date, datetime
-import os
-from dotenv import load_dotenv
 
-load_dotenv()
-supabase = create_client(os.getenv("SUPABASE_URL=https://kmkrtxkxovcyhrezxche.supabase.co"), os.getenv("SUPABASE_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imtta3J0eGt4b3ZjeWhyZXp4Y2hlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTA4NTA3MDcsImV4cCI6MjA2NjQyNjcwN30.f3IkPlgUPuGauXMyOgmi5mWAfCTh_lWmw750X5jlveM"))
+SUPABASE_URL = "https://kmkrtxkxovcyhrezxche.supabase.co"
+SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imtta3J0eGt4b3ZjeWhyZXp4Y2hlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTA4NTA3MDcsImV4cCI6MjA2NjQyNjcwN30.f3IkPlgUPuGauXMyOgmi5mWAfCTh_lWmw750X5jlveM"
+
+supabase = create_client(SUPABASE_URL, SUPABASE_KEY)
 
 def login():
     st.title("Connexion à l'Espace Équipe")
@@ -49,14 +49,14 @@ else:
     elif choix == "Boîte à idées":
         st.title("💡 Boîte à idées")
         with st.form("idée_form"):
-            donnée = st.text_input("1. Donnée (constat)")
+            donnee = st.text_input("1. Donnée (constat)")
             action = st.text_input("2. Action proposée")
             resultat = st.text_input("3. Résultat attendu")
             submitted = st.form_submit_button("Soumettre l'idée")
             if submitted:
                 supabase.table("ideas").insert({
                     "user_id": user_id,
-                    "donnee": donnée,
+                    "donnee": donnee,
                     "action": action,
                     "resultat": resultat,
                     "status": "En attente"
@@ -74,12 +74,12 @@ else:
         with st.form("form_task"):
             titre = st.text_input("Titre de la tâche")
             deadline = st.date_input("Deadline")
-            assigné = st.text_input("Nom du collaborateur")
+            assigne = st.text_input("Nom du collaborateur")
             if st.form_submit_button("Ajouter la tâche"):
                 supabase.table("tasks").insert({
                     "titre": titre,
                     "deadline": str(deadline),
-                    "assigné": assigné,
+                    "assigné": assigne,
                     "statut": "À faire"
                 }).execute()
                 st.success("Tâche ajoutée.")
