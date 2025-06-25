@@ -1,0 +1,5 @@
+git init
+git remote add origin https://github.com/TON-NOM/app-equipe-romain.git
+git add .
+git commit -m "Déploiement initial"
+git push -u origin master
